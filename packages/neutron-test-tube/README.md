@@ -257,7 +257,7 @@ use cosmos_sdk_proto::{
     cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest, SendAuthorization},
     cosmos::base::v1beta1::Coin as BaseCoin,
 };
-use neutron_sdk::proto_types::neutron::dex as DexTypes;
+use neutron_std::types::neutron::dex as DexTypes;
 use prost::Message;
 
 use neutron_test_tube::{Account, Bank, Dex, NeutronTestApp};
