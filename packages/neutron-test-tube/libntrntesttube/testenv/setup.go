@@ -109,8 +109,6 @@ func InitChain(appInstance *app.App) (sdk.Context, secp256k1.PrivKey) {
 
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 
-	admintypes.GenesisState
-
 	requireNoErr(err)
 
 	consensusParams := simtestutil.DefaultConsensusParams
