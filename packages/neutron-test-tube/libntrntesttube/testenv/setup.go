@@ -40,7 +40,6 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	adminmoduletypes "github.com/cosmos/admin-module/v2/x/adminmodule/types"
 	// neutron
 	"github.com/neutron-org/neutron/v4/app"
 	dexmoduletypes "github.com/neutron-org/neutron/v4/x/dex/types"
@@ -110,8 +109,7 @@ func InitChain(appInstance *app.App) (sdk.Context, secp256k1.PrivKey) {
 
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 
-	adminGenesisState := adminmoduletypes.GenesisState{Admins: []string{"INSERT YOUR ADDRESS HERE"}}
-	appInstance.AppCodec().UnmarshalJSON(genesisState[adminmoduletypes.ModuleName], &adminGenesisState)
+	admintypes.GenesisState
 
 	requireNoErr(err)
 
