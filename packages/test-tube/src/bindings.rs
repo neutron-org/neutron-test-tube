@@ -84,6 +84,7 @@ pub type _check_for_64_bit_pointer_matching_GoInt = [::std::os::raw::c_char; 1us
 pub type GoString = _GoString_;
 pub type GoMap = *mut ::std::os::raw::c_void;
 pub type GoChan = *mut ::std::os::raw::c_void;
+pub type GoBool = GoUint8;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct GoInterface {
@@ -212,7 +213,11 @@ extern "C" {
     pub fn InitTestEnv() -> GoUint64;
 }
 extern "C" {
-    pub fn InitAccount(envId: GoUint64, coinsJson: GoString) -> *mut ::std::os::raw::c_char;
+    pub fn InitAccount(
+        envId: GoUint64,
+        coinsJson: GoString,
+        is_admin: GoBool,
+    ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn FinalizeBlock(envId: GoUint64, tx: GoString) -> *mut ::std::os::raw::c_char;

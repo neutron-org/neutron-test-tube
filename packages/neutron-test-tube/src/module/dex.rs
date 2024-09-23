@@ -128,13 +128,16 @@ mod tests {
     fn dex_integration() {
         let app = NeutronTestApp::new();
         let signer = app
-            .init_account(&[
-                Coin::new(1_000_000_000_000_000_000_000_000u128, "untrn"),
-                Coin::new(1_000_000_000_000u128, "usdc"),
-            ])
+            .init_account(
+                &[
+                    Coin::new(1_000_000_000_000_000_000_000_000u128, "untrn"),
+                    Coin::new(1_000_000_000_000u128, "usdc"),
+                ],
+                false,
+            )
             .unwrap();
         let _receiver = app
-            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")])
+            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
             .unwrap();
         let dex = Dex::new(&app);
 

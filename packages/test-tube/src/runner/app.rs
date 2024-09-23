@@ -125,7 +125,7 @@ impl BaseApp {
     }
     /// Initialize account with initial balance of any coins.
     /// This function mints new coins and send to newly created account
-    pub fn init_account(&self, coins: &[Coin]) -> RunnerResult<SigningAccount> {
+    pub fn init_account(&self, coins: &[Coin], is_admin: bool) -> RunnerResult<SigningAccount> {
         let mut coins = coins.to_vec();
 
         // invalid coins if denom are unsorted
@@ -139,7 +139,7 @@ impl BaseApp {
 
         let base64_priv = unsafe {
             // BeginBlock(self.id);
-            let addr = InitAccount(self.id, coins_json);
+            let addr = InitAccount(self.id, coins_json, is_admin as u8);
             FinalizeBlock(self.id, empty_tx);
             CString::from_raw(addr)
         }
@@ -169,7 +169,9 @@ impl BaseApp {
     /// Convenience function to create multiple accounts with the same
     /// Initial coins balance
     pub fn init_accounts(&self, coins: &[Coin], count: u64) -> RunnerResult<Vec<SigningAccount>> {
-        (0..count).map(|_| self.init_account(coins)).collect()
+        (0..count)
+            .map(|_| self.init_account(coins, false))
+            .collect()
     }
 
     /// Function to set price for currency pairs as they're not updated automatically here
