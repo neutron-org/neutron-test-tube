@@ -179,10 +179,10 @@ mod tests {
         let admin = app
             .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
             .unwrap();
-
+        let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
         tf.update_params(
             MsgUpdateParams {
-                authority: admin.address(),
+                authority: adminmodule_addr.to_string(),
                 params: Some(TokenFactoryParams {
                     denom_creation_fee: vec![],
                     denom_creation_gas_consume: 0,

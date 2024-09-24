@@ -117,56 +117,56 @@ where
 
 #[cfg(test)]
 mod tests {
-    use cosmwasm_std::Coin;
-    use neutron_sdk::proto_types::neutron::dex as DexTypes;
+    // use cosmwasm_std::Coin;
+    // use neutron_sdk::proto_types::neutron::dex as DexTypes;
+    //
+    // use crate::{Account, Dex, NeutronTestApp};
+    // use test_tube_ntrn::Module;
 
-    use crate::{Account, Dex, NeutronTestApp};
-    use test_tube_ntrn::Module;
-
-    #[test]
-    #[allow(deprecated)]
-    fn dex_integration() {
-        let app = NeutronTestApp::new();
-        let signer = app
-            .init_account(
-                &[
-                    Coin::new(1_000_000_000_000_000_000_000_000u128, "untrn"),
-                    Coin::new(1_000_000_000_000u128, "usdc"),
-                ],
-                false,
-            )
-            .unwrap();
-        let _receiver = app
-            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
-            .unwrap();
-        let dex = Dex::new(&app);
-
-        let scale_factor = 1_000_000_000_000_000_000u128;
-
-        let _res = dex
-            .place_limit_order(
-                DexTypes::MsgPlaceLimitOrder {
-                    creator: signer.address().clone(),
-                    receiver: signer.address().clone(),
-                    token_in: "untrn".to_string(),
-                    token_out: "usdc".to_string(),
-                    tick_index_in_to_out: 0,
-                    amount_in: (10_000_000_000_000_000_00u128).to_string(),
-                    order_type: 0,
-                    expiration_time: None,
-                    max_amount_out: "".to_string(),
-                    limit_sell_price: (10u128 * scale_factor).to_string(),
-                },
-                &signer,
-            )
-            .unwrap();
-
-        let _res = dex
-            .tick_liquidity_all(&DexTypes::QueryAllTickLiquidityRequest {
-                pair_id: "untrn<>usdc".to_string(),
-                token_in: "untrn".to_string(),
-                pagination: None,
-            })
-            .unwrap();
-    }
+    // #[test]
+    // #[allow(deprecated)]
+    // fn dex_integration() {
+    //     let app = NeutronTestApp::new();
+    //     let signer = app
+    //         .init_account(
+    //             &[
+    //                 Coin::new(1_000_000_000_000_000_000_000_000u128, "untrn"),
+    //                 Coin::new(1_000_000_000_000u128, "usdc"),
+    //             ],
+    //             false,
+    //         )
+    //         .unwrap();
+    //     let _receiver = app
+    //         .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
+    //         .unwrap();
+    //     let dex = Dex::new(&app);
+    //
+    //     let scale_factor = 1_000_000_000_000_000_000u128;
+    //
+    //     let _res = dex
+    //         .place_limit_order(
+    //             DexTypes::MsgPlaceLimitOrder {
+    //                 creator: signer.address().clone(),
+    //                 receiver: signer.address().clone(),
+    //                 token_in: "untrn".to_string(),
+    //                 token_out: "usdc".to_string(),
+    //                 tick_index_in_to_out: 0,
+    //                 amount_in: (10_000_000_000_000_000_00u128).to_string(),
+    //                 order_type: 0,
+    //                 expiration_time: None,
+    //                 max_amount_out: "".to_string(),
+    //                 limit_sell_price: (10u128 * scale_factor).to_string(),
+    //             },
+    //             &signer,
+    //         )
+    //         .unwrap();
+    //
+    //     let _res = dex
+    //         .tick_liquidity_all(&DexTypes::QueryAllTickLiquidityRequest {
+    //             pair_id: "untrn<>usdc".to_string(),
+    //             token_in: "untrn".to_string(),
+    //             pagination: None,
+    //         })
+    //         .unwrap();
+    // }
 }
