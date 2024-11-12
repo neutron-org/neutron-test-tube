@@ -6,6 +6,7 @@ mod marketmap;
 mod oracle;
 mod tokenfactory;
 mod wasm;
+mod adminmodule;
 
 pub use test_tube_ntrn::macros;
 pub use test_tube_ntrn::module::Module;
@@ -17,3 +18,4 @@ pub use marketmap::Marketmap;
 pub use oracle::Oracle;
 pub use tokenfactory::TokenFactory;
 pub use wasm::Wasm;
+pub use adminmodule::Adminmodule;

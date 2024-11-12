@@ -74,13 +74,13 @@ mod tests {
     fn test_execute_cosmos_msgs() {
         let app = NeutronTestApp::new();
         let signer = app
-            .init_account(&[Coin::new(10000000000u128, "untrn")])
+            .init_account(&[Coin::new(10000000000u128, "untrn")], false)
             .unwrap();
 
         let bank = Bank::new(&app);
 
         // BankMsg::Send
-        let to = app.init_account(&[]).unwrap();
+        let to = app.init_account(&[], false).unwrap();
         let coin = Coin::new(100u128, "untrn");
         let send_msg = CosmosMsg::Bank(BankMsg::Send {
             to_address: to.address(),

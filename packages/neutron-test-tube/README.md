@@ -57,7 +57,7 @@ let app = NeutronTestApp::new();
 let account = app.init_account(&[
     Coin::new(1_000_000_000_000u128, "usdt"),
     Coin::new(1_000_000_000_000u128, "untrn"),
-]);
+], false);
 ```
 
 Now if we want to test a cosmwasm contract, we need to
@@ -268,10 +268,10 @@ let signer = app
     .init_account(&[
         Coin::new(1_000_000_000_000_000_000_000_000u128, "untrn"),
         Coin::new(1_000_000_000_000u128, "usdc"),
-    ])
+    ], false)
     .unwrap();
 let receiver = app
-    .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")])
+    .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
     .unwrap();
 let dex = Dex::new(&app);
 let bank = Bank::new(&app);

@@ -64,13 +64,16 @@ mod tests {
     fn authz_integration() {
         let app = NeutronTestApp::new();
         let signer = app
-            .init_account(&[
-                Coin::new(100_000_000_000_000_000_000u128, "untrn"),
-                Coin::new(10u128, "usdc"),
-            ])
+            .init_account(
+                &[
+                    Coin::new(100_000_000_000_000_000_000u128, "untrn"),
+                    Coin::new(10u128, "usdc"),
+                ],
+                false,
+            )
             .unwrap();
         let receiver = app
-            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")])
+            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
             .unwrap();
         let authz = Authz::new(&app);
         let bank = Bank::new(&app);

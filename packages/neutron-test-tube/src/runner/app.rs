@@ -1,8 +1,7 @@
 use cosmwasm_std::Coin;
-
 use prost::Message;
-use test_tube_ntrn::account::SigningAccount;
 
+use test_tube_ntrn::account::SigningAccount;
 use test_tube_ntrn::runner::result::{RunnerExecuteResult, RunnerResult};
 use test_tube_ntrn::runner::Runner;
 use test_tube_ntrn::BaseApp;
@@ -77,8 +76,8 @@ impl NeutronTestApp {
 
     /// Initialize account with initial balance of any coins.
     /// This function mints new coins and send to newly created account
-    pub fn init_account(&self, coins: &[Coin]) -> RunnerResult<SigningAccount> {
-        self.inner.init_account(coins)
+    pub fn init_account(&self, coins: &[Coin], is_admin: bool) -> RunnerResult<SigningAccount> {
+        self.inner.init_account(coins, is_admin)
     }
     /// Convenience function to create multiple accounts with the same
     /// Initial coins balance
@@ -166,20 +165,21 @@ mod tests {
         MsgCreateDenom, MsgCreateDenomResponse, QueryParamsRequest, QueryParamsResponse,
     };
 
-    use crate::module::Wasm;
-    use crate::runner::app::NeutronTestApp;
-
     use test_tube_ntrn::account::Account;
     use test_tube_ntrn::module::Module;
     use test_tube_ntrn::runner::*;
     use test_tube_ntrn::ExecuteResponse;
+
+    use crate::module::Wasm;
+    use crate::runner::app::NeutronTestApp;
 
     #[test]
     fn test_init_account() {
         let app = NeutronTestApp::default();
 
         // Just check it doesn't panic
-        app.init_account(&coins(100_000_000_000, "untrn")).unwrap();
+        app.init_account(&coins(100_000_000_000, "untrn"), false)
+            .unwrap();
     }
 
     #[test]
@@ -230,7 +230,7 @@ mod tests {
         assert_eq!(app.get_block_height(), 1i64);
 
         let acc = app
-            .init_account(&coins(100_000_000_000_000_000_000u128, "untrn")) // 100 inj
+            .init_account(&coins(100_000_000_000_000_000_000u128, "untrn"), false) // 100 inj
             .unwrap();
         let addr = acc.address();
 

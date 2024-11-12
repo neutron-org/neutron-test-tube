@@ -3,13 +3,14 @@ package main
 import "C"
 
 import (
-	sdkmath "cosmossdk.io/math"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"os"
 	"sync"
 	"time"
+
+	sdkmath "cosmossdk.io/math"
 
 	abci "github.com/cometbft/cometbft/abci/types"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -89,7 +90,7 @@ func CleanUp(envId uint64) {
 }
 
 //export InitAccount
-func InitAccount(envId uint64, coinsJson string) *C.char {
+func InitAccount(envId uint64, coinsJson string, isAdmin bool) *C.char {
 	env := loadEnv(envId)
 	var coins sdk.Coins
 
@@ -119,6 +120,11 @@ func InitAccount(envId uint64, coinsJson string) *C.char {
 	err := env.FundAccount(env.Ctx, env.App.BankKeeper, accAddr, coins)
 	if err != nil {
 		panic(errors.Wrapf(err, "Failed to fund account"))
+	}
+
+	// if we want this addr to be a network admin
+	if isAdmin {
+		env.App.AdminmoduleKeeper.SetAdmin(env.Ctx, accAddr.String())
 	}
 
 	base64Priv := base64.StdEncoding.EncodeToString(priv.Bytes())

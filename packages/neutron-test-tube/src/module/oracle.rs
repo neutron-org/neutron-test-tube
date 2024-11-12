@@ -42,7 +42,7 @@ mod tests {
         let app = NeutronTestApp::new();
 
         let _receiver = app
-            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")])
+            .init_account(&[Coin::new(1_000_000_000_000u128, "untrn")], false)
             .unwrap();
         // let marketmap = Marketmap::new(&app);
         let oracle = Oracle::new(&app);
