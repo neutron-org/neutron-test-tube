@@ -257,7 +257,7 @@ use cosmos_sdk_proto::{
     cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest, SendAuthorization},
     cosmos::base::v1beta1::Coin as BaseCoin,
 };
-use neutron_sdk::proto_types::neutron::dex as DexTypes;
+use neutron_std::types::neutron::dex as DexTypes;
 use prost::Message;
 
 use neutron_test_tube::{Account, Bank, Dex, NeutronTestApp};
@@ -289,8 +289,9 @@ let res = dex
             amount_in: (10_000_000_000_000_000_00u128).to_string(),
             order_type: 0,
             expiration_time: None,
-            max_amount_out: "".to_string(),
-            limit_sell_price: (10u128 * scale_factor).to_string(),
+            max_amount_out: None,
+            limit_sell_price: Some((10u128 * scale_factor).to_string()),
+            min_average_sell_price: None,
         },
         &signer,
     )
