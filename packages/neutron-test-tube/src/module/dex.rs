@@ -156,7 +156,7 @@ mod tests {
     //                 expiration_time: None,
     //                 max_amount_out: None,
     //                 limit_sell_price: Some((10u128 * scale_factor).to_string()),
-                    min_average_sell_price: None,
+    //                 min_average_sell_price: None,
     //             },
     //             &signer,
     //         )

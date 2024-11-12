@@ -69,7 +69,7 @@ mod tests {
     use neutron_std::types::osmosis::tokenfactory::v1beta1::{
         MsgBurn, MsgCreateDenom, MsgMint, MsgUpdateParams, QueryDenomsFromCreatorRequest,
     };
-    use neutron_sdk::proto_types::osmosis::tokenfactory::Params as TokenFactoryParams;
+    // use neutron_sdk::proto_types::osmosis::tokenfactory::Params as TokenFactoryParams;
 
     use test_tube_ntrn::Module;
 
