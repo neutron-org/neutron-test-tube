@@ -4,7 +4,7 @@ use neutron_std::types::osmosis::tokenfactory::v1beta1::{
     MsgSetDenomMetadataResponse, MsgUpdateParams, MsgUpdateParamsResponse,
     QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse,
     QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse, QueryParamsRequest,
-    QueryParamsResponse,
+    QueryParamsResponse
 };
 
 use test_tube_ntrn::module::Module;
@@ -66,14 +66,15 @@ where
 mod tests {
     use cosmos_sdk_proto::cosmos::bank::v1beta1::QueryBalanceRequest;
     use cosmwasm_std::{coins, Coin, Uint128};
-    use neutron_std::types::osmosis::tokenfactory::v1beta1::{
-        MsgBurn, MsgCreateDenom, MsgMint, MsgUpdateParams, QueryDenomsFromCreatorRequest,
-    };
-    // use neutron_sdk::proto_types::osmosis::tokenfactory::Params as TokenFactoryParams;
+    use neutron_std::shim::Any;
+    use neutron_std::types::cosmos::adminmodule::adminmodule::MsgSubmitProposal;
+    use neutron_std::types::osmosis::tokenfactory::v1beta1::{MsgBurn, MsgCreateDenom, MsgMint, MsgUpdateParams, QueryDenomsFromCreatorRequest};
+    use neutron_std::types::osmosis::tokenfactory::Params;
+    use prost::Message;
 
     use test_tube_ntrn::Module;
 
-    use crate::{Account, Bank, NeutronTestApp, TokenFactory};
+    use crate::{Account, Adminmodule, Bank, NeutronTestApp, TokenFactory};
 
     #[test]
     fn tokenfactory_integration() {
@@ -171,27 +172,43 @@ mod tests {
         assert_eq!(coin.denom, balance.denom);
     }
 
-    // #[test]
-    // fn test_set_bank_hook() {
-    //     let app = NeutronTestApp::default();
-    //     let tf = TokenFactory::new(&app);
-    //
-    //     let admin = app
-    //         .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
-    //         .unwrap();
-    //     let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
-    //     tf.update_params(
-    //         MsgUpdateParams {
-    //             authority: adminmodule_addr.to_string(),
-    //             params: Some(TokenFactoryParams {
-    //                 denom_creation_fee: vec![],
-    //                 denom_creation_gas_consume: 0,
-    //                 fee_collector_address: "".to_string(),
-    //                 whitelisted_hooks: vec![],
-    //             }),
-    //         },
-    //         &admin,
-    //     )
-    //     .unwrap();
-    // }
+    #[test]
+    fn test_set_bank_hook() {
+        let app = NeutronTestApp::default();
+        let adm = Adminmodule::new(&app);
+
+        // we creating an addr which could send proposals directly
+        let admin = app
+            .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
+            .unwrap();
+        // address of admin moudulele. it is an authority for all modules
+        let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
+
+        // tokenfactory update params messaage
+        let tfmsg = MsgUpdateParams {
+            authority: adminmodule_addr.to_string(),
+            params: Some(Params {
+                // set proper params & hooks below
+                denom_creation_fee: vec![],
+                denom_creation_gas_consume: Some(0),
+                fee_collector_address: "".to_string(),
+                whitelisted_hooks: vec![],
+            }),
+        };
+
+        // encode it to Any
+        let tfmsg_any = Any {
+            type_url: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams".to_string(),
+            value: tfmsg.encode_to_vec(),
+        };
+
+        // submit as a proposal
+        let msg = MsgSubmitProposal{messages: vec![tfmsg_any], proposer: admin.address()};
+
+        adm.submit_proposal(
+            msg,
+            &admin,
+        )
+        .unwrap();
+    }
 }
