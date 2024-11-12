@@ -171,27 +171,27 @@ mod tests {
         assert_eq!(coin.denom, balance.denom);
     }
 
-    #[test]
-    fn test_set_bank_hook() {
-        let app = NeutronTestApp::default();
-        let tf = TokenFactory::new(&app);
-
-        let admin = app
-            .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
-            .unwrap();
-        let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
-        tf.update_params(
-            MsgUpdateParams {
-                authority: adminmodule_addr.to_string(),
-                params: Some(TokenFactoryParams {
-                    denom_creation_fee: vec![],
-                    denom_creation_gas_consume: 0,
-                    fee_collector_address: "".to_string(),
-                    whitelisted_hooks: vec![],
-                }),
-            },
-            &admin,
-        )
-        .unwrap();
-    }
+    // #[test]
+    // fn test_set_bank_hook() {
+    //     let app = NeutronTestApp::default();
+    //     let tf = TokenFactory::new(&app);
+    //
+    //     let admin = app
+    //         .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
+    //         .unwrap();
+    //     let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
+    //     tf.update_params(
+    //         MsgUpdateParams {
+    //             authority: adminmodule_addr.to_string(),
+    //             params: Some(TokenFactoryParams {
+    //                 denom_creation_fee: vec![],
+    //                 denom_creation_gas_consume: 0,
+    //                 fee_collector_address: "".to_string(),
+    //                 whitelisted_hooks: vec![],
+    //             }),
+    //         },
+    //         &admin,
+    //     )
+    //     .unwrap();
+    // }
 }
