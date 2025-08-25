@@ -1,5 +1,5 @@
 use crate::{fn_execute, fn_query};
-use margined_neutron_std::types::cosmos::bank::v1beta1::{
+use neutron_std::types::cosmos::bank::v1beta1::{
     MsgSend, MsgSendResponse, QueryAllBalancesRequest, QueryAllBalancesResponse,
     QueryBalanceRequest, QueryBalanceResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse,
 };
@@ -41,8 +41,8 @@ where
 #[cfg(test)]
 mod tests {
     use cosmwasm_std::Coin;
-    use margined_neutron_std::types::cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest};
-    use margined_neutron_std::types::cosmos::base::v1beta1::Coin as BaseCoin;
+    use neutron_std::types::cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest};
+    use neutron_std::types::cosmos::base::v1beta1::Coin as BaseCoin;
 
     use crate::Module;
     use crate::{Account, Bank, NeutronTestApp};

@@ -1,4 +1,4 @@
-use margined_neutron_std::types::cosmos::adminmodule::adminmodule::{
+use neutron_std::types::cosmos::adminmodule::adminmodule::{
     MsgAddAdmin, MsgAddAdminResponse, MsgDeleteAdmin, MsgDeleteAdminResponse, MsgSubmitProposal,
     MsgSubmitProposalResponse, QueryAdminsRequest, QueryAdminsResponse,
 };

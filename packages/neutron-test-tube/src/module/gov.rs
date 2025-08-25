@@ -1,6 +1,6 @@
 use cosmrs::tx::MessageExt;
-use margined_neutron_std::shim::Any;
-use margined_neutron_std::types::cosmos::{
+use neutron_std::shim::Any;
+use neutron_std::types::cosmos::{
     adminmodule::adminmodule::MsgSubmitProposal,
     gov::{
         v1::{

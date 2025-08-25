@@ -1,4 +1,4 @@
-use margined_neutron_std::types::slinky::{
+use neutron_std::types::slinky::{
     marketmap::v1 as MarketMapTypesV1, oracle::v1 as OracleTypesV1,
 };
 use crate::{fn_execute, fn_query};
@@ -47,7 +47,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use margined_neutron_std::{
+    use neutron_std::{
         shim::Timestamp,
         types::slinky::{
             marketmap::v1::{Market, MsgCreateMarkets, ProviderConfig, Ticker},

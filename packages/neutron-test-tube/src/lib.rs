@@ -8,7 +8,7 @@ mod runner;
 pub mod utils;
 
 pub use cosmrs;
-pub use margined_neutron_std as neutron_std;
+pub use neutron_std as neutron_std;
 
 pub use account::{Account, FeeSetting, NonSigningAccount, SigningAccount};
 pub use module::*;

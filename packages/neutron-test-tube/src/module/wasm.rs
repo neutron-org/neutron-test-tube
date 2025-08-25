@@ -1,5 +1,5 @@
 use cosmwasm_std::Coin;
-use margined_neutron_std::types::{
+use neutron_std::types::{
     cosmos::base::v1beta1::Coin as BaseCoin,
     cosmwasm::wasm::v1::{
         AccessConfig, MsgExecuteContract, MsgExecuteContractResponse, MsgInstantiateContract,

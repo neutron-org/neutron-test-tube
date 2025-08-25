@@ -1,5 +1,5 @@
 use crate::{fn_execute, fn_query};
-use margined_neutron_std::types::neutron::dex as DexTypes;
+use neutron_std::types::neutron::dex as DexTypes;
 
 use crate::module::Module;
 use crate::runner::Runner;
@@ -118,7 +118,7 @@ where
 #[cfg(test)]
 mod tests {
     use cosmwasm_std::Coin;
-    use margined_neutron_std::types::neutron::dex as DexTypes;
+    use neutron_std::types::neutron::dex as DexTypes;
 
     use crate::Module;
     use crate::{Account, Dex, NeutronTestApp};
@@ -146,9 +146,9 @@ mod tests {
                 amount_in: 1_000_000_000_000_000_000u128.to_string(),
                 order_type: 0,
                 expiration_time: None,
-                max_amount_out: "".to_string(),
-                limit_sell_price: (10u128 * scale_factor).to_string(),
-                min_average_sell_price: "".to_string(),
+                max_amount_out: Some("".to_string()),
+                limit_sell_price: Some((10u128 * scale_factor).to_string()),
+                min_average_sell_price: Some("".to_string()),
             },
             &signer,
         )
