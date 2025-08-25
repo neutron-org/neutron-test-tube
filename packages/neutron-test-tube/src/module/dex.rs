@@ -1,8 +1,8 @@
+use crate::{fn_execute, fn_query};
 use margined_neutron_std::types::neutron::dex as DexTypes;
-use test_tube_ntrn::{fn_execute, fn_query};
 
-use test_tube_ntrn::module::Module;
-use test_tube_ntrn::runner::Runner;
+use crate::module::Module;
+use crate::runner::Runner;
 
 pub struct Dex<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -120,8 +120,8 @@ mod tests {
     use cosmwasm_std::Coin;
     use margined_neutron_std::types::neutron::dex as DexTypes;
 
+    use crate::Module;
     use crate::{Account, Dex, NeutronTestApp};
-    use test_tube_ntrn::Module;
 
     #[test]
     fn dex_integration() {
@@ -148,6 +148,7 @@ mod tests {
                 expiration_time: None,
                 max_amount_out: "".to_string(),
                 limit_sell_price: (10u128 * scale_factor).to_string(),
+                min_average_sell_price: "".to_string(),
             },
             &signer,
         )

@@ -6,9 +6,9 @@ use margined_neutron_std::types::osmosis::tokenfactory::v1beta1::{
     QueryDenomsFromCreatorResponse, QueryParamsRequest, QueryParamsResponse,
 };
 
-use test_tube_ntrn::module::Module;
-use test_tube_ntrn::runner::Runner;
-use test_tube_ntrn::{fn_execute, fn_query};
+use crate::module::Module;
+use crate::runner::Runner;
+use crate::{fn_execute, fn_query};
 
 pub struct TokenFactory<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -59,14 +59,14 @@ where
 
 #[cfg(test)]
 mod tests {
-    use cosmwasm_std::Coin;
+    use cosmwasm_std::{Coin, Uint256};
     use margined_neutron_std::types::cosmos::bank::v1beta1::QueryBalanceRequest;
     use margined_neutron_std::types::osmosis::tokenfactory::v1beta1::{
         MsgBurn, MsgCreateDenom, MsgMint, QueryDenomsFromCreatorRequest,
     };
 
+    use crate::Module;
     use crate::{Account, Bank, NeutronTestApp, TokenFactory};
-    use test_tube_ntrn::Module;
 
     #[test]
     fn tokenfactory_integration() {
@@ -107,7 +107,7 @@ mod tests {
 
         // TODO mint new denom
         let coin: margined_neutron_std::types::cosmos::base::v1beta1::Coin =
-            Coin::new(1000000000, denom.clone()).into();
+            Coin::new(Uint256::new(1000000000u128), denom.clone()).into();
         tokenfactory
             .mint(
                 MsgMint {

@@ -1,15 +1,18 @@
 #![doc = include_str!("../README.md")]
 
+pub mod account;
+pub mod bindings;
+mod conversions;
 mod module;
 mod runner;
+pub mod utils;
 
 pub use cosmrs;
-pub use margined_neutron_std;
+pub use margined_neutron_std as neutron_std;
 
+pub use account::{Account, FeeSetting, NonSigningAccount, SigningAccount};
 pub use module::*;
 pub use runner::app::NeutronTestApp;
-pub use test_tube_ntrn::account::{Account, FeeSetting, NonSigningAccount, SigningAccount};
-pub use test_tube_ntrn::runner::error::{DecodeError, EncodeError, RunnerError};
-pub use test_tube_ntrn::runner::result::{ExecuteResponse, RunnerExecuteResult, RunnerResult};
-pub use test_tube_ntrn::runner::Runner;
-pub use test_tube_ntrn::{fn_execute, fn_query};
+pub use runner::error::{DecodeError, EncodeError, RunnerError};
+pub use runner::result::{ExecuteResponse, RunnerExecuteResult, RunnerResult};
+pub use runner::Runner;

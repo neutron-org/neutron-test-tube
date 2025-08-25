@@ -3,10 +3,11 @@ use margined_neutron_std::types::cosmos::authz::v1beta1::{
     QueryGranteeGrantsResponse, QueryGranterGrantsRequest, QueryGranterGrantsResponse,
     QueryGrantsRequest, QueryGrantsResponse,
 };
-use test_tube_ntrn::{fn_execute, fn_query};
 
-use test_tube_ntrn::module::Module;
-use test_tube_ntrn::runner::Runner;
+use crate::{fn_execute, fn_query};
+
+use crate::module::Module;
+use crate::runner::Runner;
 
 pub struct Authz<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -58,7 +59,7 @@ mod tests {
     use prost::Message;
 
     use crate::{Account, Authz, Bank, NeutronTestApp};
-    use test_tube_ntrn::Module;
+    use crate::Module;
 
     #[test]
     fn authz_integration() {

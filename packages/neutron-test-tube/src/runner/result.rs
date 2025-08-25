@@ -38,7 +38,7 @@ where
             .msg_responses
             // since this tx contains exactly 1 msg
             // when getting none of them, that means error
-            .get(0)
+            .first()
             .ok_or(RunnerError::ExecuteError { msg: res.log })?;
 
         let data = R::decode(msg_data.value.as_slice()).map_err(DecodeError::ProtoDecodeError)?;
@@ -94,7 +94,7 @@ where
             .msg_responses
             // since this tx contains exactly 1 msg
             // when getting none of them, that means error
-            .get(0)
+            .first()
             .ok_or(RunnerError::ExecuteError { msg: res.log })?;
 
         let data = R::decode(msg_data.value.as_slice()).map_err(DecodeError::ProtoDecodeError)?;
@@ -143,13 +143,29 @@ where
 
     fn try_from(res: ResponseFinalizeBlock) -> Result<Self, Self::Error> {
         // NOTE: this actually returns multiple transactions
-        let tx = res
-            .tx_results
-            .first()
-            .or_else(|| res.tx_results.get(1))
-            .ok_or(RunnerError::ExecuteError {
+        // let tx = res
+        //     .tx_results
+        //     .first()
+        //     .or_else(|| res.tx_results.get(1))
+        //     .ok_or(RunnerError::ExecuteError {
+        //         msg: "No tx results".to_string(),
+        //     })?;
+        // let tx = res
+        //     .tx_results
+        //     .get(1) // Access the second item directly (index 1)
+        //     .ok_or(RunnerError::ExecuteError {
+        //         msg: "No second tx result".to_string(),
+        //     })?;
+
+        let tx = if res.tx_results.len() < 2 {
+            res.tx_results.first().ok_or(RunnerError::ExecuteError {
                 msg: "No tx results".to_string(),
-            })?;
+            })?
+        } else {
+            res.tx_results.get(1).ok_or(RunnerError::ExecuteError {
+                msg: "No tx results".to_string(),
+            })?
+        };
 
         let tx_msg_data =
             TxMsgData::decode(tx.data.as_ref()).map_err(DecodeError::ProtoDecodeError)?;
@@ -160,7 +176,7 @@ where
             // the gas spend transaction as mentioned above
             // this needs some thought for supporting more than
             // one transaction per block
-            .get(0)
+            .first()
             .ok_or(RunnerError::ExecuteError {
                 msg: tx.log.clone(),
             })?;
