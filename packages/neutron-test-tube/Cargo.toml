@@ -24,6 +24,6 @@ thiserror            = { version = "1.0.34" }
 bindgen = "0.60.1"
 
 [dev-dependencies]
-cw1-subkeys        = { version = "3.0.0",git = "https://github.com/permissionlessweb/cw-plus", branch = "bump/v3", features = ["library"] }
-cw1-whitelist      = { version = "3.0.0", git = "https://github.com/permissionlessweb/cw-plus", branch = "bump/v3" }
+cw1-subkeys        = { version = "3.0.0",git = "https://github.com/permissionlessweb/cw-plus", features = ["library"] }
+cw1-whitelist      = { version = "3.0.0", git = "https://github.com/permissionlessweb/cw-plus" }
 rayon         = { version = "1.5.3" }
