@@ -41,9 +41,9 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
 	// neutron
-	"github.com/neutron-org/neutron/v4/app"
-	dexmoduletypes "github.com/neutron-org/neutron/v4/x/dex/types"
-	tokenfactorytypes "github.com/neutron-org/neutron/v4/x/tokenfactory/types"
+	"github.com/neutron-org/neutron/v9/app"
+	dexmoduletypes "github.com/neutron-org/neutron/v9/x/dex/types"
+	tokenfactorytypes "github.com/neutron-org/neutron/v9/x/tokenfactory/types"
 )
 
 type TestEnv struct {
@@ -62,6 +62,12 @@ type DebugAppOptions struct{}
 func (ao DebugAppOptions) Get(o string) interface{} {
 	if o == server.FlagTrace {
 		return true
+	}
+	if o == server.FlagQueryGasLimit {
+		return uint64(5_000_000)
+	}
+	if o == "wasm.query_gas_limit" {
+		return uint64(50_000_000)
 	}
 	return nil
 }
@@ -190,7 +196,7 @@ func GenesisStateWithValSet(appInstance *app.App) (app.GenesisState, secp256k1.P
 			MinSelfDelegation: sdkmath.ZeroInt(),
 		}
 		validators = append(validators, validator)
-		delegations = append(delegations, stakingtypes.NewDelegation(genAccs[0].String(), val.Address.String(), sdkmath.LegacyOneDec()))
+		delegations = append(delegations, stakingtypes.NewDelegation(genAccs[0].GetAddress().String(), validator.OperatorAddress, sdkmath.LegacyOneDec()))
 
 		// add initial validator powers so consumer InitGenesis runs correctly
 		pub, _ := val.ToProto()
