@@ -4,20 +4,20 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 name        = "test-tube-ntrn"
 repository  = "https://github.com/margined-protocol/test-tube"
-version     = "0.1.0"
+version     = "0.1.1"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 base64           = "0.21.5"
-cosmrs           = { version = "0.15.0", features = [ "cosmwasm", "rpc" ] }
-cosmwasm-std     = { version = "1.5.4", features = [ "abort", "cosmwasm_1_2", "cosmwasm_1_3", "cosmwasm_1_4", "iterator", "stargate" ] }
-prost            = "0.12.4"
-serde            = "1.0.144"
-serde_json       = "1.0.85"
-tendermint-proto = "0.32.0"
-thiserror        = "1.0.34"
+cosmrs = { git = "https://github.com/permissionlessweb/cosmos-rust", branch = "main" }
+cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", features = ["abort", "cosmwasm_1_2", "cosmwasm_1_3", "cosmwasm_1_4", "iterator", "stargate"] }
+tendermint-proto = { git = "https://github.com/permissionlessweb/tendermint-rs", branch = "main" }
+prost                = { version = "0.14.1", features = [ "derive" ] }
+serde                = { version = "1.0.144" }
+serde_json           = { version = "1.0.85" }
+thiserror            = { version = "1.0.34" }
 
 [dev-dependencies]
-cw1-whitelist = "0.15.0"
-rayon         = "1.5.3"
+cw1-whitelist = { git = "https://github.com/permissionlessweb/cw-plus", branch = "main" }
+rayon         = { version = "1.5.3" }

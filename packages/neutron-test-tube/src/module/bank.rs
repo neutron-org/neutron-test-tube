@@ -1,11 +1,11 @@
-use margined_neutron_std::types::cosmos::bank::v1beta1::{
+use crate::{fn_execute, fn_query};
+use neutron_std::types::cosmos::bank::v1beta1::{
     MsgSend, MsgSendResponse, QueryAllBalancesRequest, QueryAllBalancesResponse,
     QueryBalanceRequest, QueryBalanceResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse,
 };
-use test_tube_ntrn::{fn_execute, fn_query};
 
-use test_tube_ntrn::module::Module;
-use test_tube_ntrn::runner::Runner;
+use crate::module::Module;
+use crate::runner::Runner;
 
 pub struct Bank<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -41,11 +41,11 @@ where
 #[cfg(test)]
 mod tests {
     use cosmwasm_std::Coin;
-    use margined_neutron_std::types::cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest};
-    use margined_neutron_std::types::cosmos::base::v1beta1::Coin as BaseCoin;
+    use neutron_std::types::cosmos::bank::v1beta1::{MsgSend, QueryBalanceRequest};
+    use neutron_std::types::cosmos::base::v1beta1::Coin as BaseCoin;
 
+    use crate::Module;
     use crate::{Account, Bank, NeutronTestApp};
-    use test_tube_ntrn::Module;
 
     #[test]
     fn bank_integration() {

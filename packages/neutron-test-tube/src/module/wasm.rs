@@ -1,14 +1,18 @@
-use cosmrs::proto::cosmwasm::wasm::v1::{
-    AccessConfig, MsgExecuteContract, MsgExecuteContractResponse, MsgInstantiateContract,
-    MsgInstantiateContractResponse, MsgMigrateContract, MsgMigrateContractResponse, MsgStoreCode,
-    MsgStoreCodeResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse,
-};
 use cosmwasm_std::Coin;
+use neutron_std::types::{
+    cosmos::base::v1beta1::Coin as BaseCoin,
+    cosmwasm::wasm::v1::{
+        AccessConfig, MsgExecuteContract, MsgExecuteContractResponse, MsgInstantiateContract,
+        MsgInstantiateContractResponse, MsgMigrateContract, MsgMigrateContractResponse,
+        MsgStoreCode, MsgStoreCodeResponse, QuerySmartContractStateRequest,
+        QuerySmartContractStateResponse,
+    },
+};
 use serde::{de::DeserializeOwned, Serialize};
 
-use test_tube_ntrn::runner::error::{DecodeError, EncodeError, RunnerError};
-use test_tube_ntrn::runner::result::{RunnerExecuteResult, RunnerResult};
-use test_tube_ntrn::{
+use crate::runner::error::{DecodeError, EncodeError, RunnerError};
+use crate::runner::result::{RunnerExecuteResult, RunnerResult};
+use crate::{
     account::{Account, SigningAccount},
     runner::Runner,
 };
@@ -65,9 +69,9 @@ where
                 msg: serde_json::to_vec(msg).map_err(EncodeError::JsonEncodeError)?,
                 funds: funds
                     .iter()
-                    .map(|c| cosmrs::proto::cosmos::base::v1beta1::Coin {
+                    .map(|c| BaseCoin {
                         denom: c.denom.parse().unwrap(),
-                        amount: format!("{}", c.amount.u128()),
+                        amount: format!("{}", c.amount.to_string()),
                     })
                     .collect(),
             },
@@ -92,9 +96,9 @@ where
                 msg: serde_json::to_vec(msg).map_err(EncodeError::JsonEncodeError)?,
                 funds: funds
                     .iter()
-                    .map(|c| cosmrs::proto::cosmos::base::v1beta1::Coin {
+                    .map(|c| BaseCoin {
                         denom: c.denom.parse().unwrap(),
-                        amount: format!("{}", c.amount.u128()),
+                        amount: format!("{}", c.amount.to_string()),
                     })
                     .collect(),
                 contract: contract.to_owned(),

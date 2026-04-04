@@ -1,12 +1,13 @@
-use margined_neutron_std::types::cosmos::authz::v1beta1::{
+use neutron_std::types::cosmos::authz::v1beta1::{
     MsgExec, MsgExecResponse, MsgGrant, MsgGrantResponse, QueryGranteeGrantsRequest,
     QueryGranteeGrantsResponse, QueryGranterGrantsRequest, QueryGranterGrantsResponse,
     QueryGrantsRequest, QueryGrantsResponse,
 };
-use test_tube_ntrn::{fn_execute, fn_query};
 
-use test_tube_ntrn::module::Module;
-use test_tube_ntrn::runner::Runner;
+use crate::{fn_execute, fn_query};
+
+use crate::module::Module;
+use crate::runner::Runner;
 
 pub struct Authz<'a, R: Runner<'a>> {
     runner: &'a R,
@@ -46,8 +47,8 @@ where
 #[cfg(test)]
 mod tests {
     use cosmwasm_std::Coin;
-    use margined_neutron_std::shim::Any;
-    use margined_neutron_std::types::{
+    use neutron_std::shim::Any;
+    use neutron_std::types::{
         cosmos::authz::v1beta1::{
             GenericAuthorization, Grant, GrantAuthorization, MsgExec, MsgGrant,
             QueryGranteeGrantsRequest, QueryGranterGrantsRequest,
@@ -58,7 +59,7 @@ mod tests {
     use prost::Message;
 
     use crate::{Account, Authz, Bank, NeutronTestApp};
-    use test_tube_ntrn::Module;
+    use crate::Module;
 
     #[test]
     fn authz_integration() {
