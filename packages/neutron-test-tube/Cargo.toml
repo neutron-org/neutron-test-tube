@@ -12,7 +12,7 @@ exclude = [ "neutron", "test_artifacts" ]
 [dependencies]
 base64               = { version = "0.21.5" }
 cosmrs               = { path = "../../../cosmos-rust/cosmrs" }
-cosmwasm-std         = { version = "3.0.1", features = [ "stargate","cosmwasm_2_0" ] }
+cosmwasm-std         = { version = "3.0.4", features = [ "stargate","cosmwasm_2_0" ] }
 hex                  = { version = "0.4.2" }
 neutron-std         = { path = "../../../neutron-std/packages/neutron-std" }
 prost                = { version = "0.14.1", features = [ "derive" ] }
