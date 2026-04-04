@@ -11,10 +11,10 @@ exclude = [ "neutron", "test_artifacts" ]
 
 [dependencies]
 base64               = { version = "0.21.5" }
-cosmrs               = { path = "../../../cosmos-rust/cosmrs" }
-cosmwasm-std         = { version = "3.0.4", features = [ "stargate","cosmwasm_2_0" ] }
+cosmrs = { git = "https://github.com/permissionlessweb/cosmos-rust", branch = "main" }
+cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", features = ["stargate", "cosmwasm_2_0"] }
 hex                  = { version = "0.4.2" }
-neutron-std         = { path = "../../../neutron-std/packages/neutron-std" }
+neutron-std = { git = "https://github.com/permissionlessweb/neutron-std", branch = "feat/cw3" }
 prost                = { version = "0.14.1", features = [ "derive" ] }
 serde                = { version = "1.0.144" }
 serde_json           = { version = "1.0.85" }
@@ -25,5 +25,5 @@ bindgen = "0.60.1"
 
 [dev-dependencies]
 cw1-subkeys        = { version = "3.0.0",git = "https://github.com/permissionlessweb/cw-plus", features = ["library"] }
-cw1-whitelist      = { path = "../../../cw-plus/contracts/cw1-whitelist" }
+cw1-whitelist = { git = "https://github.com/permissionlessweb/cw-plus", branch = "main" }
 rayon         = { version = "1.5.3" }
